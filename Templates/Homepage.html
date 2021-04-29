@@ -4,30 +4,51 @@
         <title>
             Homepage
         </title>
+        <!-- Bring in bootstrap and JQuery libraries  -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="homepageStyleSheet.css">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepageStyleSheet.css') }}">
     </head>
     <body>
+        <!-- Create Navbar -->
+        <nav class="navbar navbar-fixed-top navbar-custom">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/homepage">Homepage</a>
+            </div>
+            <ul class="nav navbar-right navbar-nav">
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></a></li>
+            </ul>
+            </div>
+        </nav>
         <div class="container">
-            <nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container-fluid">
-                <!-- <div class="navbar-header">
-                    <a class="navbar-brand" href="#home">Gareth's Homepage</a>
-                </div> -->
-                <ul class="nav navbar-nav">
-                    <li><a class="navbar-brand" href="/homepage">Homepage</a></li>
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Register</a></li>
-                </ul>
-                </div>
-            </nav>
+            <div class="Main">
+                <h1 class="Welcome">
+                    Learning to Lockpick
+                </h1>
+                <p class="Subtext">
+                    (for legal purposes)
+                </p>
+            </div>
         </div>
-        <h1> How to _____ </h1>
+        <div class="container">
+            <div class="IntroButtons">
+                <button class="Start" onclick="window.location.href='/start'">
+                    Start
+                </button>
+                <button class="Login" onclick="window.location.href='/login'">
+                    Login
+                </button>
+            </div>
+        </div>
+        <!-- <h1> How to _____ </h1>
         <p>
             Testing github commits, once more
             But this time it isn't gareth.
             Jason was here
-        </p>
+        </p> -->
     </body>
 </html>
