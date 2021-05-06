@@ -1,0 +1,25 @@
+.navbar-custom {
+    background-color: rgb(66, 160, 66);
+    color: black;
+}
+body {
+    padding-top:5%;
+    background-color: rgb(124, 218, 124);
+    color: black;
+}
+.navbar-custom a:link{
+    color: white;
+    text-decoration: none;
+}
+.navbar-custom a:visited{
+    color: white;
+    text-decoration: none;
+}
+ul.nav li a:hover{
+    background-color:transparent;
+    text-decoration: none;
+}
+.navbar-custom a:active{
+    color: white;
+    text-decoration: none;
+}

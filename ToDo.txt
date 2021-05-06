@@ -1,0 +1,3 @@
+1. Style login page
+
+2. Add "Please enter login details" pop up in sign in field is empty

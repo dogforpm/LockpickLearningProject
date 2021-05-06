@@ -1,0 +1,53 @@
+
+.Main {
+    padding-top: 1%;
+    height: 200px;
+    position: relative;
+    background-color: rgb(248, 239, 215);
+    border: 3px solid black;
+    text-align: center;
+}
+.Welcome {
+    font-size: 65px;
+    position: relative;
+    font-weight: bold;
+    vertical-align: center;
+}
+
+.Subtext {
+    top: 25%;
+    font-size: 15px;
+    position: relative;
+    vertical-align: center;
+}
+.container {
+    padding-top: 8%;
+    position: relative;
+    text-align: center;
+}
+
+.IntroButtons {
+    height: 75px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+}
+.Start {
+    height: 70px;
+    width: 120px;
+    font-size: 150%;
+    margin-right: 50%;
+    text-align: center;
+}
+.Continue {
+    height: 70px;
+    width: 120px;
+    font-size: 150%;
+    text-align: center;
+}
+.Login {
+    height: 70px;
+    width: 120px;
+    font-size: 150%;
+    text-align: center;
+}
