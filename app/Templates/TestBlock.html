@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    {% extends "Base.html" %}
+    {% block headContent %} 
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepageStyleSheet.css') }}">
+    {% endblock %}
+    {% block content %}
+        <div class="container">
+            <div class="Main">
+                {% if user %}
+                <h1 class="Welcome">
+                    Welcome {{user.username}}
+                </h1>
+                <p class="Subtext">
+                    Are you ready to {% if user.started == "Yes"%} continue? {% else %} get started? {% endif %}
+                </p>
+                {% else %}
+                <h1 class="Welcome">
+                    Learning to Lockpick
+                </h1>
+                <p class="Subtext">
+                    (for legal purposes)
+                </p>
+                
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="IntroButtons">
+                {% if user.started == "Yes"%}
+                <button class="Continue" onclick="window.location.href='/continue'">
+                    Continue
+                </button>
+                {% else %}
+                <button class="Start" onclick="window.location.href='/start'">
+                    Start
+                </button>
+                <button class="Login" onclick="window.location.href='/login'">
+                    Login
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}
+            <!-- <h1> How to _____ </h1>
+            <p>
+                Testing github commits, once more
+                But this time it isn't gareth.
+                Jason was here
+            </p> -->
