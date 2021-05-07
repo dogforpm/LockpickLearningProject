@@ -1,28 +1,46 @@
 <!DOCTYPE html>
-        {% extends "base.html" %}
+    <!-- Brings in the default layout -->
+    {% extends "base.html" %}
 
-{% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }} <br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }} <br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
-    {% if error %}
-            <p class="error">Error! It is: {{ error }}</p>
-    {% endif %}
-{% endblock %}
+    {% block content %}
+        <h1>Sign In</h1>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <!-- Form for user to enter their username -->
+            <p>
+                {{ form.username.label }}<br>
+                {{ form.username(size=32) }} <br>
+                <!-- Returns error that field is empty if user submits the 
+                form with no username entered -->
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <!-- Form for user to enter their password -->
+            <p>
+                {{ form.password.label }}<br>
+                {{ form.password(size=32) }} <br>
+                <!-- Returns error that field is empty if user submits the 
+                form with no password entered -->
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <!-- Form for user to say if they'd like their login to be remembered -->
+            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+            <p>{{ form.submit() }}</p>
+        </form>
+        <!-- Returns error if user login details are incorrect -->
+        {% if error %}
+                <p class="error">Error! It is: {{ error }}</p>
+        {% endif %}
+        {% with elements = get_flashed_messages() %}
+            {% if elements %}
+            <ul>
+                {% for element in elements %}
+                <li>{{ element }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+    {% endblock %}

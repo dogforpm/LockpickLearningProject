@@ -1,18 +1,25 @@
 <!DOCTYPE html>
+    <!-- Brings in the default layout -->
     {% extends "Base.html" %}
     {% block headContent %} 
+    <!-- Adds secondary style sheet needed specifically for this page -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepageStyleSheet.css') }}">
     {% endblock %}
+    <!-- Adds homepage content -->
     {% block content %}
         <div class="container">
             <div class="Main">
-                {% if user %}
+                <!-- Checks if user is logged in, if they are, the page personally welcomes them -->
+                {% if current_user.is_authenticated %}
                 <h1 class="Welcome">
-                    Welcome {{user.username}}
+                    Welcome {{current_user.username}}
                 </h1>
+                <!-- Alters secondary homeapge text if the user is logged in to say "contine" or "start" 
+                based on if the current user has started the course or is now starting -->
                 <p class="Subtext">
-                    Are you ready to {% if user.started == "Yes"%} continue? {% else %} get started? {% endif %}
+                    Are you ready to {% if current_user.started == True%} continue? {% else %} get started? {% endif %}
                 </p>
+                <!-- If the current user isn't logged in, the page just welcomes them -->
                 {% else %}
                 <h1 class="Welcome">
                     Learning to Lockpick
@@ -27,7 +34,8 @@
         </div>
         <div class="container">
             <div class="IntroButtons">
-                {% if user.started == "Yes"%}
+                <!-- If user has started, then the button says continue -->
+                {% if current_user.started == True%}
                 <button class="Continue" onclick="window.location.href='/continue'">
                     Continue
                 </button>
@@ -42,6 +50,7 @@
             </div>
         </div>
         <hr>
+        <!-- Testing so probs just ignore, but if interested. Flashes message generated from login on homepage -->
         {% with elements = get_flashed_messages() %}
         {% if elements %}
         <ul>

@@ -1,3 +1,9 @@
 1. Style login page
 
 2. Add "Please enter login details" pop up in sign in field is empty
+
+3. Can use "pytest" to test
+
+4. package "dotenv" to set up enviroment variables
+
+5. ReadMe file needs to explain how to run code and tests

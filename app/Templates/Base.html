@@ -1,3 +1,5 @@
+<!-- This document acts as a default layout for the project pages -->
+<!-- THIS IS NOT THE PAGE YOU EDIT IF YOU WANT TO MAKE A NEW PAGE!!! -->
 <DOCTYPE html>
     <html>
         <head>
@@ -6,20 +8,30 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
             <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/WebsiteDefault.css') }}">
+            <!-- Allows further content (if required) to be added to the head of the html page -->
             {% block headContent %} {% endblock %}
         </head>
         <body>
+            <!-- Creates the Navbar -->
             <nav class="navbar navbar-fixed-top navbar-custom">
                 <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ url_for('homepage')}}">Homepage</a>
                 </div>
                 <ul class="nav navbar-right navbar-nav">
+                    <!-- Checks if user is logged in. If they are logged in, replaces 
+                    the "log in" and "register" with a "logout" option -->
+                    {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     <li><a href="{{ url_for('register')}}"><span class="glyphicon glyphicon-user"></span> Register</a></a></li>
+                    {% endif %}
                 </ul>
                 </div>
             </nav>
+            <!-- Allows content to be added to the page using this as a default layout and further body tag content
+            to be added as needed -->
             {% block content %}{% endblock %}
         </body>
     </html>
