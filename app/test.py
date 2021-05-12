@@ -47,3 +47,11 @@ if __name__=='__main__':
     unittest.main(verbosity = 2)
 
     # run with 'python test.py'
+
+TableList = [UserCourse, Users, Lesson, Test, Question]
+for table in TableList:
+    contents = table.query.all()
+    for u in contents:
+        db.session.delete(u)
+    db.session.commit()
+
