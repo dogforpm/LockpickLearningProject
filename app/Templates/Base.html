@@ -4,6 +4,7 @@
     <html>
         <head>
             <title>Lockpick Learning</title>
+            <link rel="shortcut icon" href="#">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -22,6 +23,7 @@
                     <!-- Checks if user is logged in. If they are logged in, replaces 
                     the "log in" and "register" with a "logout" option -->
                     {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('UserStats')}}"><span class="glyphicon glyphicon-th-list"></span> Stat</a></li>
                     <li><a href="{{ url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

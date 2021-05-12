@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+    <!-- Brings in the default layout -->
+    {% extends "base.html" %}
+
+    {% block content %}
+        <h1>
+            Overall Score:
+        </h1>
+        <p>
+            {{Overall}} / 12
+        </p>
+        <H3>
+            Lesson 1 Score: 
+        </H3>
+        <p>
+            {{L1Score}} / 4
+        </p>
+        <H3>
+            Lesson 2 Score:
+        </H3>
+        <p>
+            {{L2Score}} / 4
+        </p>
+        <H3>
+            Lesson 3 Score:
+        </H3>
+        <p>
+            {{L3Score}} / 4
+        </p>
+            <!-- <H2>
+                Test 1: {{L3T1Score}}
+            </H2>
+                <H3>
+                    Question 1: {{L3T1Q2Score}}
+                </H3>
+                <H3>
+                    Question 2: {{L3T1Q2Score}}
+                </H3>
+            <H2>
+                Test 2: {{L3T2Score}}
+            </H2>
+                <H3>
+                    Question 1: {{L3T2Q1Score}}
+                </H3>
+                <H3>
+                    Question 2: {{L3T2Q2Score}}
+                </H3> -->
+
+    {% endblock %}

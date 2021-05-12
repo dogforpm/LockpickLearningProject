@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db
 from flask_login import current_user, login_user, logout_user
-from app.models import Users
+from app.models import Users, Lesson, Test, Question
 from app.forms import UserLoginForm, UserRegistrationForm
 
 # Define the '/index' project route, contains the base html used across all other 
@@ -17,10 +17,8 @@ def index():
 # debugging purposes. Or as a page to temporarily store code if needed.
 @app.route('/test')
 def test():
-    flash('You were successfully logged in')
-    return redirect(url_for('index'))
     user = {'username': 'Dominic Toretto'}
-    return render_template('index.html', user=user)
+    return render_template('TestBlock.html', user=user)
 
 # Define the default route as well as the '/homepage' route, the opening page of the 
 # project as well as the homepage
@@ -57,7 +55,7 @@ def login():
         # to the homepage
         flash('Login requested for user {}, remember_me={}'.format(form.username.data, form.remember_me.data))
         login_user(userlogin, remember=form.remember_me.data)
-        return redirect(url_for('homepage'))
+        return redirect(url_for('DataEntry'))
     return render_template('login.html', title='Sign In', form=form)
     # if form.validate_on_submit():
     #     if request.method == 'POST':
@@ -99,3 +97,102 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('homepage'))
+
+# Updates user record to say that they have started the teaching lesson
+# Will probaby be moved into the "Start" section when made
+@app.route('/UpdateUserState')
+def UpdateUserState():
+    if current_user.is_authenticated:
+        UserStartState = Users.query.filter_by(id=current_user.id).first()
+        if UserStartState.started is False:
+            UserStartState.started = True
+            db.session.commit()
+    return ("nothing")
+
+# Resets User's started state for the purposes of testing
+@app.route('/RestartUser')
+def RestartUser():
+    if current_user.is_authenticated:
+        UserStartState = Users.query.filter_by(id=current_user.id).first()
+        if UserStartState.started is True:
+            UserStartState.started = False
+            db.session.commit()
+    return redirect(url_for('homepage'))
+
+# Empties DB for purpose of testing
+@app.route('/EmptyDb')
+def EmptyDb():
+    TableList = [Users, Lesson, Test, Question]
+    for table in TableList:
+        contents = table.query.all()
+        for u in contents:
+            db.session.delete(u)
+        db.session.commit()
+    return redirect(url_for('homepage'))
+
+# Requires "admin, admin" login, prints the whole DB to the server terminal
+@app.route('/AdminInfo')
+def AdminInfo():
+    if current_user.is_authenticated:
+        if current_user.username == "admin":
+            UsersList = db.session.query(Users).all()
+            for users in UsersList:
+                print(users)
+                print(users.id, users.name, users.started)
+            LessonList = db.session.query(Lesson).all()
+            for LL in LessonList:
+                print(LL)
+                print(LL.id, LL.Type, LL.Completed, LL.user_id)
+            TestList = db.session.query(Test).all()
+            for TL in TestList:
+                print(TL)
+                print(TL.id, TL.LessonNum, TL.Completed, TL.lesson_id)
+            QuestionList = db.session.query(Question).all()
+            for QL in QuestionList:
+                print(QL)
+                print(QL.id, QL.Answer, QL.Answered, QL.test_id)
+    return redirect(url_for('homepage'))
+
+# Creates the related database records for the questions, tests and lessons
+@app.route('/DataEntry', methods=['GET', 'POST'])
+def DataEntry():
+    if current_user.is_authenticated:
+        UserLesson = Lesson.query.filter_by(user_id=current_user.id).first()
+        if UserLesson is None:
+            # Topics of each lesson
+            TopicList = ["Picking", "Forceful", "Exploit"]
+            # Three lessons
+            for i in range(0,3):
+                LessonList = Lesson(Completed=False, Type=TopicList[i], user_id=current_user.id)
+                db.session.add(LessonList)
+                db.session.commit()
+                # Two tests per lesson
+                for j in range(0,2):
+                    TestList = Test(Completed=False, LessonNum="L" + str(i+1), lesson_id=LessonList.id)
+                    db.session.add(TestList)
+                    db.session.commit()
+                    # Two questions per test
+                    for n in range(0,2):
+                        QuestionList = Question(Answered=False, Answer="TBD", test_id=TestList.id)
+                        db.session.add(QuestionList)
+                        db.session.commit()
+            return redirect(url_for('homepage'))
+    return render_template('homepage.html')
+
+# Records statisctics for the number of questions answered (Current records not answered for testing purposes)
+@app.route('/Stats')
+def UserStats():
+    if current_user.is_authenticated:
+        UserTestStats = [0,0,0]
+        for u, l, t, q in db.session.query(Users, Lesson, Test, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Test.lesson_id).filter(Test.id==Question.test_id).filter(Users.id==current_user.id).all():
+            if t.LessonNum == "L1":
+                if q.Answered == False:
+                    UserTestStats[0] += 1
+            if t.LessonNum == "L2":
+                if q.Answered == False:
+                    UserTestStats[1] += 1
+            if t.LessonNum == "L3":
+                if q.Answered == False:
+                    UserTestStats[2] += 1
+    return render_template('Stats.html', L1Score = UserTestStats[0], L2Score = UserTestStats[1], L3Score = UserTestStats[2], Overall=sum(UserTestStats))
+

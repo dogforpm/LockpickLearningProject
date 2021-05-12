@@ -4,6 +4,19 @@
     {% block headContent %} 
     <!-- Adds secondary style sheet needed specifically for this page -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepageStyleSheet.css') }}">
+    <!-- Used to update user started record status -->
+    <script type=text/javascript>
+        $(function() {
+            $('#start').on('click', function(e) {
+              e.preventDefault()
+              $.getJSON('/UpdateUserState',
+                  function(data) {
+                //Intentionally empty
+              });
+              return false;
+            });
+          });
+    </script>
     {% endblock %}
     <!-- Adds homepage content -->
     {% block content %}
@@ -12,7 +25,7 @@
                 <!-- Checks if user is logged in, if they are, the page personally welcomes them -->
                 {% if current_user.is_authenticated %}
                 <h1 class="Welcome">
-                    Welcome {{current_user.username}}
+                    Welcome {{current_user.name}}
                 </h1>
                 <!-- Alters secondary homeapge text if the user is logged in to say "contine" or "start" 
                 based on if the current user has started the course or is now starting -->
@@ -34,19 +47,21 @@
         </div>
         <div class="container">
             <div class="IntroButtons">
-                <!-- If user has started, then the button says continue -->
-                {% if current_user.started == True%}
-                <button class="Continue" onclick="window.location.href='/continue'">
-                    Continue
-                </button>
-                {% else %}
-                <button class="Start" onclick="window.location.href='/start'">
-                    Start
-                </button>
-                <button class="Login" onclick="window.location.href='/login'">
-                    Login
-                </button>
-                {% endif %}
+                <form>
+                    <!-- If user has started, then the button says continue -->
+                    {% if current_user.started == True%}
+                    <button class="Continue" onclick="window.location.href='/continue'">
+                        Continue
+                    </button>
+                    {% else %}
+                    <button href=# id=start class='Start' onclick="window.location.href='/index'">
+                        Start
+                    </button>
+                    <button class="Login" onclick="window.location.href='/login'">
+                        Login
+                    </button>
+                    {% endif %}
+                </form>
             </div>
         </div>
         <hr>
