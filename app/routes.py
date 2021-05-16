@@ -9,6 +9,7 @@ from app.forms import UserLoginForm, UserRegistrationForm
 # project pages in order to allow testing
 @app.route('/index')
 def index():
+    print(current_user.name)
     user = {'username': 'Dominic Toretto'}
     return render_template('Base.html', user=user)
 
@@ -45,7 +46,7 @@ def login():
         # Extracts the userlogin information from the database based on the username
         # submitted, there should be either one value or no value returned as 
         # usernames are unique (thus only one result) or not in the db (thus None)
-        userlogin = Users.query.filter_by(username=form.username.data).first()
+        userlogin = Users.query.filter_by(username=form.username.data.lower()).first()
         # Checks if userlogin's username mataches the password in the login submission
         if userlogin is None or not userlogin.check_password(form.password.data):
             # Tells user their login failed and keeps them on the login page
@@ -57,14 +58,6 @@ def login():
         login_user(userlogin, remember=form.remember_me.data)
         return redirect(url_for('DataEntry'))
     return render_template('login.html', title='Sign In', form=form)
-    # if form.validate_on_submit():
-    #     if request.method == 'POST':
-    #         if request.form['username'] == 'admin' or request.form['password'] == 'admin':
-    #             flash('Login requested for user {}, remember_me={}'.format(form.username.data, form.remember_me.data))
-    #             return redirect(url_for('homepage'))
-    #         else:
-    #             error = "Incorrect login"
-    # return render_template('login.html', error=error, form=form)
 
 # Define the '/register' project route, allows user to register their account 
 # into the project database
@@ -79,9 +72,13 @@ def register():
     # If the user submits their login detail as being valid, the requirements defined in
     # the forms.py
     if form.validate_on_submit():
-        # Assigns the submitted value for username and name (which defaults to username
-        # if the user didn't specify one) and assigns it to 'user'
-        user = Users(username=form.username.data, name=form.name.data)
+        # Checks if a name for the user was submitted (which defaults to username if the user didn't specify one) 
+        if form.name.data == "":
+            Name = form.username.data
+        else:
+            Name = form.name.data
+        # Assigns the submitted value for username and name and assigns it to 'user'
+        user = Users(username=form.username.data.lower(), name=Name)
         # Hashes the password the user submitted
         user.set_password(form.password.data)
         # Adds and commits the user's registration to the db
@@ -122,12 +119,15 @@ def RestartUser():
 # Empties DB for purpose of testing
 @app.route('/EmptyDb')
 def EmptyDb():
-    TableList = [Users, Lesson, Test, Question]
-    for table in TableList:
-        contents = table.query.all()
-        for u in contents:
-            db.session.delete(u)
-        db.session.commit()
+    if current_user.is_authenticated:
+        if current_user.username == "admin":
+            TableList = [Users, Lesson, Test, Question]
+            for table in TableList:
+                contents = table.query.all()
+                for u in contents:
+                    db.session.delete(u)
+                db.session.commit()
+            return redirect(url_for('homepage'))
     return redirect(url_for('homepage'))
 
 # Requires "admin, admin" login, prints the whole DB to the server terminal
@@ -177,7 +177,7 @@ def DataEntry():
                         db.session.add(QuestionList)
                         db.session.commit()
             return redirect(url_for('homepage'))
-    return render_template('homepage.html')
+    return redirect(url_for('homepage'))
 
 # Records statisctics for the number of questions answered (Current records not answered for testing purposes)
 @app.route('/Stats')
