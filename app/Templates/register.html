@@ -19,9 +19,6 @@
         </p>
         <p>
             {{ form.name(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
         </p>
         <p style="font-weight: bold;">
             Password: <br>

@@ -25,6 +25,6 @@ class UserRegistrationForm(FlaskForm):
     # Wtforms internal validation method to check if the user name a user is entering
     # has or has not already been chosen by another user
     def validate_username(self, username):
-        UsernameUnique = Users.query.filter_by(username=username.data).first()
+        UsernameUnique = Users.query.filter_by(username=username.data.lower()).first()
         if UsernameUnique is not None:
             raise ValidationError('Please use a different username.')
