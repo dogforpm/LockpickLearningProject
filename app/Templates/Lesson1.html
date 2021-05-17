@@ -5,24 +5,28 @@
     <!-- Adds secondary style sheet needed specifically for this page -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/infopageStyleSheet.css') }}">
     <!-- Used to update user started record status -->
-    <script type=text/javascript>
-        $(function() {
-            $('#start').on('click', function(e) {
-              e.preventDefault()
-              $.getJSON('/UpdateUserState',
-                  function(data) {
-                //Intentionally empty
-              });
-              return false;
-            });
+    <script>
+        $(document).ready(function(){ // Document on load
+          $(".navbar-fixed-top a").click(function(){
+            $(this).tab('show');
           });
+        });
     </script>
     {% endblock %}
     <!-- Adds homepage content -->
     {% block content %}
-        <div class="sidebar"></div>
-            <a href="#">Intro</a>
-            <a href="#">Page 1</a>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li><a href="#Intro">Intro</a></li>
+            <li><a href="#Chapter1">Page 1</a></li>
+          </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- <div>
+            <li><a href="#Intro">Intro</a></li>
+            <li><a href="#Chapter1">Page 1</a></li>
             <a href="#">Page 2</a>
             <a href="#">Page 3</a>
             <a href="#">Page 4</a>
@@ -43,10 +47,10 @@
             <a href="#">Final Testing</a>
             <a href="#"></a>
             <a href="#">Page 2</a>
-        </div>
+        </div> -->
 
-        <div class ='main'>
-            <div>
+        <div class ='tab-content'>
+            <div id="Intro" class="tab-pane fade in active">
                 <div>
                     <h1> Lock Picking Technique and the Tools Needed</h1>
                 </div>
@@ -62,7 +66,7 @@
                     <img src="Photos/LockpickSet.jpg" alt="Lockpicking set" width="400" height="300" title="Lockpicking set">
                 </div>
             </div>
-            <div>
+            <div id="Chapter 1" class="tab-pane fade">
                 <div>
                     <h2> Lock Picking Technique </h2>
                 </div>
@@ -131,6 +135,7 @@
                 </div>
             </div>
         </div>
+    </div>
     {% endblock %}
 
 <!--

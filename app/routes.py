@@ -196,3 +196,6 @@ def UserStats():
                     UserTestStats[2] += 1
     return render_template('Stats.html', L1Score = UserTestStats[0], L2Score = UserTestStats[1], L3Score = UserTestStats[2], Overall=sum(UserTestStats))
 
+@app.route('/Lesson1')
+def Lesson1():
+    return render_template("Lesson1.html")
