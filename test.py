@@ -6,7 +6,6 @@ from app.forms import UserLoginForm, UserRegistrationForm
 from flask import current_app
 
 
-
 class UserModelCase(unittest.TestCase):
 
     def setUp(self):
