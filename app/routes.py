@@ -5,21 +5,6 @@ from flask_login import current_user, login_user, logout_user
 from app.models import Users, Lesson, Question
 from app.forms import UserLoginForm, UserRegistrationForm, UserQuestionCheck
 
-# Define the '/index' project route, contains the base html used across all other 
-# project pages in order to allow testing
-@app.route('/index')
-def index():
-    print(current_user.name)
-    user = {'username': 'Dominic Toretto'}
-    return render_template('Base.html', user=user)
-
-
-# Define the '/test' project route, A page that is used for testing/ internal
-# debugging purposes. Or as a page to temporarily store code if needed.
-@app.route('/test')
-def test():
-    user = {'username': 'Dominic Toretto'}
-    return render_template('TestBlock.html', user=user)
 
 # Define the default route as well as the '/homepage' route, the opening page of the 
 # project as well as the homepage
@@ -178,20 +163,32 @@ def DataEntry():
 def UserStats():
     if current_user.is_authenticated:
         UserTestStats = [0,0,0]
-        print(db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).all())
         for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).all():
-            print(q.QuestionNumber)
             if q.QuestionNumber == 1:
-                print(q.Answered)
-                if q.Answered == False:
+                if q.Answered == True:
                     UserTestStats[0] += 1
             if q.QuestionNumber == 2:
-                if q.Answered == False:
+                if q.Answered == True:
                     UserTestStats[1] += 1
             if q.QuestionNumber == 3:
-                if q.Answered == False:
+                if q.Answered == True:
                     UserTestStats[2] += 1
-    return render_template('Stats.html', L1Score = UserTestStats[0], L2Score = UserTestStats[1], L3Score = UserTestStats[2], Overall=sum(UserTestStats))
+    TotalStats = [0,0,0]
+    userlist = []
+    for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).all():
+        if u.username not in userlist:
+            userlist.append(u.username)
+        if q.QuestionNumber == "1":
+            if q.Answered == True:
+                TotalStats[0] += 1
+        if q.QuestionNumber == "2":
+            if q.Answered == True:
+                TotalStats[1] += 1
+        if q.QuestionNumber == "3":
+            if q.Answered == True:
+                TotalStats[2] += 1
+    return render_template('Stats.html', L1Score = UserTestStats[0], L2Score = UserTestStats[1], L3Score = UserTestStats[2], UserOverall=sum(UserTestStats), TotalL1Score = TotalStats[0], TotalL2Score = TotalStats[1], TotalL3Score = TotalStats[2], Overall=sum(TotalStats), Usercount=len(userlist))
+
 
 @app.route('/Lesson1QuestionCheck', methods=['GET'])
 def Lesson1QuestionCheck():
