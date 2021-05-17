@@ -2,8 +2,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db
 from flask_login import current_user, login_user, logout_user
-from app.models import Users, Lesson, Test, Question
-from app.forms import UserLoginForm, UserRegistrationForm
+from app.models import Users, Lesson, Question
+from app.forms import UserLoginForm, UserRegistrationForm, UserQuestionCheck
 
 # Define the '/index' project route, contains the base html used across all other 
 # project pages in order to allow testing
@@ -121,7 +121,7 @@ def RestartUser():
 def EmptyDb():
     if current_user.is_authenticated:
         if current_user.username == "admin":
-            TableList = [Users, Lesson, Test, Question]
+            TableList = [Users, Lesson, Question]
             for table in TableList:
                 contents = table.query.all()
                 for u in contents:
@@ -143,14 +143,10 @@ def AdminInfo():
             for LL in LessonList:
                 print(LL)
                 print(LL.id, LL.Type, LL.Completed, LL.user_id)
-            TestList = db.session.query(Test).all()
-            for TL in TestList:
-                print(TL)
-                print(TL.id, TL.LessonNum, TL.Completed, TL.lesson_id)
             QuestionList = db.session.query(Question).all()
             for QL in QuestionList:
                 print(QL)
-                print(QL.id, QL.Answer, QL.Answered, QL.test_id)
+                print(QL.id, QL.Answer, QL.Answered, QL.lesson_id)
     return redirect(url_for('homepage'))
 
 # Creates the related database records for the questions, tests and lessons
@@ -160,22 +156,18 @@ def DataEntry():
         UserLesson = Lesson.query.filter_by(user_id=current_user.id).first()
         if UserLesson is None:
             # Topics of each lesson
-            TopicList = ["Picking", "Forceful", "Exploit"]
+            TopicList = ["Lesson1", "Lesson2", "Lesson3"]
+            QuestionAnswers = [[],[],[]]
             # Three lessons
             for i in range(0,3):
                 LessonList = Lesson(Completed=False, Type=TopicList[i], user_id=current_user.id)
                 db.session.add(LessonList)
                 db.session.commit()
-                # Two tests per lesson
-                for j in range(0,2):
-                    TestList = Test(Completed=False, LessonNum="L" + str(i+1), lesson_id=LessonList.id)
-                    db.session.add(TestList)
+                # Two questions per test
+                for n in range(0,3):
+                    QuestionList = Question(QuestionNumber=i,Answered=False, Answer="TBD", lesson_id=LessonList.id)
+                    db.session.add(QuestionList)
                     db.session.commit()
-                    # Two questions per test
-                    for n in range(0,2):
-                        QuestionList = Question(Answered=False, Answer="TBD", test_id=TestList.id)
-                        db.session.add(QuestionList)
-                        db.session.commit()
             return redirect(url_for('homepage'))
     return redirect(url_for('homepage'))
 
@@ -184,18 +176,59 @@ def DataEntry():
 def UserStats():
     if current_user.is_authenticated:
         UserTestStats = [0,0,0]
-        for u, l, t, q in db.session.query(Users, Lesson, Test, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Test.lesson_id).filter(Test.id==Question.test_id).filter(Users.id==current_user.id).all():
-            if t.LessonNum == "L1":
+        for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).all():
+            if q.QuestionNumber == "1":
                 if q.Answered == False:
                     UserTestStats[0] += 1
-            if t.LessonNum == "L2":
+            if q.QuestionNumber == "2":
                 if q.Answered == False:
                     UserTestStats[1] += 1
-            if t.LessonNum == "L3":
+            if q.QuestionNumber == "3":
                 if q.Answered == False:
                     UserTestStats[2] += 1
     return render_template('Stats.html', L1Score = UserTestStats[0], L2Score = UserTestStats[1], L3Score = UserTestStats[2], Overall=sum(UserTestStats))
 
-@app.route('/Lesson1')
+@app.route('/Lesson1', methods=['GET','POST'])
 def Lesson1():
-    return render_template("Lesson1.html")
+    form = UserQuestionCheck()
+    # print(form)
+    if form.validate_on_submit():
+        # print(form.example.data)
+        for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).filter(Question.QuestionNumber==1).all():
+            if form.Question1.data == q.Answer:
+                q.Answered = True
+                db.session.commit()
+        return redirect(url_for('homepage'))
+    # else:
+    #     print(form.errors)
+    return render_template("Lesson1.html", form=form)
+
+@app.route('/Lesson2')
+def Lesson2():
+    form = UserQuestionCheck()
+    # print(form)
+    if form.validate_on_submit():
+        # print(form.example.data)
+        for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).filter(Question.QuestionNumber==2).all():
+            if form.Question1.data == q.Answer:
+                q.Answered = True
+                db.session.commit()
+        return redirect(url_for('homepage'))
+    # else:
+    #     print(form.errors)
+    return render_template("Lesson2.html", form=form)
+
+@app.route('/Lesson3')
+def Lesson3():
+    form = UserQuestionCheck()
+    # print(form)
+    if form.validate_on_submit():
+        # print(form.example.data)
+        for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).filter(Question.QuestionNumber==3).all():
+            if form.Question1.data == q.Answer:
+                q.Answered = True
+                db.session.commit()
+        return redirect(url_for('homepage'))
+    # else:
+    #     print(form.errors)
+    return render_template("Lesson3.html", form=form)

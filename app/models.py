@@ -28,27 +28,16 @@ class Lesson(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
-        return '<Lesson {}>'.format(self.Type)    
-
-# Define Test details to be stored
-# 1 Lesson can have many Tests
-class Test(db.Model):
-    __tablename__ = 'test'
-    id = db.Column(db.Integer, primary_key=True)
-    LessonNum = db.Column(db.Integer)
-    Completed = db.Column(db.Boolean, default=False)
-    lesson_id = db.Column(db.Integer, db.ForeignKey('lesson.id'))
-
-    def __repr__(self):
-        return '<Test {}>'.format(self.LessonNum)  
+        return '<Lesson {}>'.format(self.Type)     
 
 # Define Question details to be stored
 # 1 Test can have many questions
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    QuestionNumber = db.Column(db.Integer)
     Answer = db.Column(db.String(128))
     Answered = db.Column(db.Boolean, default=False)
-    test_id = db.Column(db.Integer, db.ForeignKey('test.id'))
+    lesson_id = db.Column(db.Integer, db.ForeignKey('lesson.id'))
 
     def __repr__(self):
         return '<Question {}>'.format(self.Answer)   
