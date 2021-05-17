@@ -1,6 +1,6 @@
 # Imports
 from app import app, db
-from app.models import Users, Lesson, Test, Question
+from app.models import Users, Lesson, Question
 
 # Generates db for testing
 @app.shell_context_processor
