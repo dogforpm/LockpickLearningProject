@@ -4,10 +4,10 @@
 
     {% block content %}
         <h1>
-            Overall Score:
+            User Overall Score:
         </h1>
         <p>
-            {{Overall}} / 9
+            {{UserOverall}} / 9
         </p>
         <H3>
             Lesson 1 Score: 
@@ -26,6 +26,31 @@
         </H3>
         <p>
             {{L3Score}} / 3
+        </p>
+
+        <h1>
+            Overall Score:
+        </h1>
+        <p>
+            {{Overall}} / {{Usercount*9}}
+        </p>
+        <H3>
+            Total Lesson 1 Score: 
+        </H3>
+        <p>
+            {{TotalL1Score}} / {{Usercount*3}}
+        </p>
+        <H3>
+            Total Lesson 2 Score:
+        </H3>
+        <p>
+            {{TotalL2Score}} / {{Usercount*3}}
+        </p>
+        <H3>
+            Total Lesson 3 Score:
+        </H3>
+        <p>
+            {{TotalL3Score}} / {{Usercount*3}}
         </p>
 
     {% endblock %}
