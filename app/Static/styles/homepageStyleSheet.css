@@ -22,7 +22,7 @@
     width: 1400px;
 }
 .Welcome {
-    font-size: 144px;
+    font-size: 500%;
     position: relative;
     font-weight: bold;
     vertical-align: center;
@@ -30,7 +30,7 @@
 }
 
 .Legal_subtext {
-    font-size: 96px;
+    font-size: 400%;
     position: absolute;
     top: 135px;
     left: 970px;
