@@ -20,7 +20,7 @@
     {% endblock %}
     <!-- Adds homepage content -->
     {% block content %}
-        <div class="container">
+        <div class="titleCard">
             <div class="Main">
                 <!-- Checks if user is logged in, if they are, the page personally welcomes them -->
                 {% if current_user.is_authenticated %}
@@ -37,8 +37,8 @@
                 <h1 class="Welcome">
                     Learning to Lockpick
                 </h1>
-                <p class="Subtext">
-                    (for legal purposes)
+                <p class="Legal_subtext">
+                    Legally
                 </p>
                 
                 {% endif %}
@@ -58,7 +58,7 @@
                         Start
                     </button>
                     <button class="Login" onclick="window.location.href='/login'">
-                        Login
+                        Log in
                     </button>
                     {% endif %}
                 </form>

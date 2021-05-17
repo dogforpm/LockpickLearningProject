@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+    <!-- Brings in the default layout -->
+    {% extends "Base.html" %}
+    {% block headContent %} 
+    <!-- Adds secondary style sheet needed specifically for this page -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/infopageStyleSheet.css') }}">
+    <!-- Used to update user started record status -->
+    <script type=text/javascript>
+        $(function() {
+            $('#start').on('click', function(e) {
+              e.preventDefault()
+              $.getJSON('/UpdateUserState',
+                  function(data) {
+                //Intentionally empty
+              });
+              return false;
+            });
+          });
+    </script>
+    {% endblock %}
+    <!-- Adds homepage content -->
+    {% block content %}
+        <div class="sidebar"></div>
+            <a href="#">Intro</a>
+            <a href="#">Page 1</a>
+            <a href="#">Page 2</a>
+            <a href="#">Page 3</a>
+            <a href="#">Page 4</a>
+            <a href="#">Chapter 1</a>
+            <a href="#">Page 1</a>
+            <a href="#">Page 2</a>
+            <a href="#">Page 3</a>
+            <a href="#">Page 4</a>
+            <a href="#">Chapter 2</a>
+            <a href="#">Page 1</a>
+            <a href="#">Page 2</a>
+            <a href="#">Page 3</a>
+            <a href="#">Page 4</a>
+            <a href="#">Chapter 3</a>
+            <a href="#">Page 1</a>
+            <a href="#">Page 2</a>
+            <a href="#">Page 3</a>
+            <a href="#">Final Testing</a>
+            <a href="#"></a>
+            <a href="#">Page 2</a>
+        </div>
+
+        <div class ='main'>
+            <div>
+                <div>
+                    <h1> Lock Picking Technique and the Tools Needed</h1>
+                </div>
+                <div>
+                    <h2> The tools for the job</h2>
+                    <p>
+                        There are a wide range of tools one can use to pick a lock. For this lesson we’re going to focus on using the 
+                        most common tools out there: pick rakes and a tension wrench.
+                    </p>
+                    <p>
+                        Here the tension wrench is on the left and the pick rakes are lined up on the right.
+                    </p>
+                    <img src="Photos/LockpickSet.jpg" alt="Lockpicking set" width="400" height="300" title="Lockpicking set">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h2> Lock Picking Technique </h2>
+                </div>
+                <div>
+                    <p>
+                        Lock picking is less of a science and more of an art. Every lock is different and you definitely need to develop
+                        a feel for it, but the same basic principles always apply. The most simple way to pick a lock is a fast and dirty one:
+                        scrubbing.
+                    </p>
+                    <h3> Insert Tension Wrench into the Bottom of the keyhole and Apply Slight Pressure </h3>
+                    <p>
+                        The tension wrench is key (pun definitely intended) to picking a lock successfully. People often mistakenly believe the
+                        most important part is the pick, because that's what is lifting the key pins up to be in line with the shear line. 
+                    </p>
+                    <p>
+                        The tension wrench is important because as you’re lifting up the pin sets with the pick, you need to also apply tension
+                        on the plug using the wrench. If the proper amount of torque is applied on the plug, as soon as the driver pin passes the 
+                        shear line, the plug will rotate slightly. Then when you pull your pick out, the key pin will fall back down, however the 
+                        driver pin will catch the side of the plug, therefore staying above the sear line. Below is a diagram of this.
+                    </p>
+                    <img src="Photos/pincatching.jpg" alt="Pin Catching " width="400" height="300" title="Pin Catching">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h2> Lock Picking Technique </h2>
+                </div>
+                <div>
+                    <p>
+                        You can keep lifting pins with you pick and applying tension to the plug with the wrench until all the driver pins are clear 
+                        of the shear line. 
+                    </p>
+                    <p>
+                        So next you take your tension wrench and put it in the bottom of the hole. Then you want to apply slight pressure in the 
+                        direction you would turn they key. When we say slight we mean slight, if you push to hard this will cause the driver pins 
+                        to bind in beneath the shear line. You must have enough “give” to allow the driver pins to pass above the shear line, 
+                        and have enough torque that when they begin to drop down, an edge of the driver pin catches the plug as it begins to rotate. 
+                        How much pressure is to much? If your wrench is bending a significant amount, then chances are you’re applying to much pressure. 
+                        So err on the side of caution when it comes to pressure. 
+                    </p>
+                    <img src="Photos/pincatching.jpg" alt="Pin Catching " width="400" height="300" title="Pin Catching">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h2> Lock Picking Technique </h2>
+                </div>
+                <div>
+                    <h3> Insert Pick at Top of Lock</h3>
+                    <p>
+                        Next you should slide the rake of your choice all the way to the back.
+                    </p>
+                    <h3> While Applying Slight Torque to Your Wrench, Scrub Your Pick Back and Forth in the Key Hole </h3>
+                    <p>
+                        You want to keep applying slight pressure on your wrench.  I recommend using your non-dominant hand for this. With your dominant 
+                        hand, rake or “scrub” (the name of the technique we’re using remember!) the inside of the plug with the pick. AS you are pulling 
+                        the pick back, lift it up in order to apply pressure on the pins.
+                    </p>
+                    <h3> Repeat Until all the Pins Set </h3>
+                    <p>
+                        You should keep applying torque on the wrench and scrubbing all of the pins until they set. You probably will need to apply more
+                        pressure to the pins with your pick as you approach the last one or two pins that need to set. If you’re not really getting anywhere 
+                        there’s a good chance you applied to much torque on the wrench. Relax, reset the pins and start all over again, focusing on not using 
+                        to much pressure. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+<!--
+Lesson One Q
+
+what do you use to apply tension to the plug?
+Choices:
+Tension Wrench
+Pick
+A: Tension Wrench
+
+Which pin Catches on the edge of the plug?
+Choices:
+Driver pin
+Key pin
+A: Driver Pin
+
+What happens if you apply to much pressure with the wrench?
+Choices:
+the driver pinds beind beneath the shear line
+The key pins fall into the plug
+A: The driver pins bind beneath the shear line
+-->
