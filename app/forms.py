@@ -1,6 +1,6 @@
 # Imports
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField, IntegerField
 from wtforms.validators import DataRequired, ValidationError, EqualTo
 from app.models import Users
 
@@ -28,3 +28,10 @@ class UserRegistrationForm(FlaskForm):
         UsernameUnique = Users.query.filter_by(username=username.data.lower()).first()
         if UsernameUnique is not None:
             raise ValidationError('Please use a different username.')
+
+# Define User Login forms
+class UserQuestionCheck(FlaskForm):
+    Question1 = RadioField('Question 1:', choices=[('A','description'),('B','description'),('C','description'),('D','description')], validators=[DataRequired()])
+    Question2 = RadioField('Question 2:', choices=[('A','description'),('B','description'),('C','description'),('D','description')], validators=[DataRequired()])
+    Question3 = RadioField('Question 3:', choices=[('A','description'),('B','description'),('C','description'),('D','description')], validators=[DataRequired()])
+    submit = SubmitField('Submit answers')
