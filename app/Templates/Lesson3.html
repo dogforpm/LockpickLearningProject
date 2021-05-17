@@ -8,6 +8,7 @@
     {% endblock %}
     <!-- Adds homepage content -->
     {% block content %}
+    <div class = 'container'>
         <div class ='main'>
             <div>
                 <div>
@@ -72,7 +73,52 @@
                     </p>
                 </div>
             </div> 
+            <div>
+                <p> Question 1: Who was the Snap Gun originally developed by?</p>
+                <form>
+                    <input type="checkbox" id="Q1A1" name="Q1A1 " value="Police">
+                    <label for=" Q1A1"> Police </label> <br>
+            
+                    <input type="checkbox" id="Q1A2" name="Q1A2 " value="Thieves">
+                    <label for=" Q1A2"> Thieves </label> <br>
+            
+                    <input type="submit" value=" Submit">
+            
+                </form>
+            </div>
+            
+            <div>
+                <p> Question 2: How much force should you set the thumb wheel to?</p>
+                <form>
+                    <input type="checkbox" id="Q2A1" name="Q2A1 " value="Highest setting">
+                    <label for=" Q2A1"> Highest setting </label> <br>
+            
+                    <input type="checkbox" id="Q2A2" name="Q2A2 " value="Low setting">
+                    <label for=" Q2A2"> Low setting, slowly increasing </label> <br>
+            
+                    <input type="submit" value=" Submit">
+            
+                </form>
+            
+                <div>
+                    <p> Question 3: After you fully pull the trigger, when should you try and twist the wrench?</p>
+                    <form>
+                        <input type="checkbox" id="Q3A1" name="Q3A1 " value="Just a moment later">
+                        <label for=" Q3A1">Just a moment later </label> <br>
+            
+                        <input type="checkbox" id="Q3A2" name="Q3A2 " value="After waiting">
+                        <label for=" Q3A2"> After waiting for the pins to settle. </label> <br>
+            
+                        <input type="submit" value=" Submit">
+            
+                    </form>
+            
+                </div>
+            
+            
+            </div>
         </div>
+    </div>
     {% endblock %}
 
 <!--
@@ -95,9 +141,3 @@ Just a moment later
 after you wait for the pins to settle
 A: after you wait for the pins to settle
 -->
-
-
-
-
-</body>
-</html>

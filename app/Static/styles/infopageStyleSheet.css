@@ -16,89 +16,16 @@
     padding-top: 1%;
     height: 400px;
     position: relative;
-    background-color: white/* rgb(248, 239, 215) */;
+    background-color: #EDF2F4/* rgb(248, 239, 215) */;
     /*border: 3px solid black; */
     text-align: center;
     width: 1400px;
 }
-.Welcome {
-    font-size: 144px;
-    position: relative;
-    font-weight: bold;
-    vertical-align: center;
-    font-family: MomcakeB;
-}
 
-.Legal_subtext {
-    font-size: 96px;
-    position: absolute;
-    top: 135px;
-    left: 970px;
-    font-family:Backlash;
-    color: #B24C63;
-}
-
-.Subtext {
-    top: 25%;
-    font-size: 15px;
-    position: relative;
-    vertical-align: center;
-    font-family: Backlash;
-}
-
-.titleCard {
-    padding-top: 8%;
-    position: relative;
-    text-align: center;
-    margin-right: auto;
-    margin-left: 15%;
-}
 .container {
     padding-top: 8%;
     position: relative;
     text-align: center;
 }
 
-.IntroButtons {
-    height: 75px;
-    position: relative;
-    text-align: center;
-    vertical-align: middle;
-}
-.Start {
-    height: 70px;
-    width: 120px;
-    margin-right: 50%;
-    text-align: center;
-    border: none;
-    background-color: inherit;
-    padding: 14px 28px;
-    font-size: 46px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Backlash;
-}
-.Continue {
-    height: 70px;
-    width: 120px;
-    text-align: center;
-    border: none;
-    background-color: inherit;
-    padding: 14px 28px;
-    font-size: 46px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Backlash;
-}
-.Login {
-    height: 70px;
-    width: 120px;
-    text-align: center;
-    border: none;
-    background-color: inherit;
-    padding: 14px 28px;
-    font-size: 46px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Backlash;
-}
+
