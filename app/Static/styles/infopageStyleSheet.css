@@ -27,5 +27,45 @@
     position: relative;
     text-align: center;
 }
+.Movement {
+    height: 75px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+}
 
+.Button1 {
+    height: 70px;
+    width: 120px;
+    text-align: center;
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 46px;
+    cursor: pointer;
+    color: #B24C63;
+    display: inline-block;
+    font-family: Backlash;
+}
+.Button2 {
+    height: 70px;
+    width: 120px;
+    text-align: center;
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    color: #0A8754;
+    font-size: 46px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Backlash;
+}
 
+a {
+    display: block;
+    width: 100%;
+    line-height: 2em;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+}
