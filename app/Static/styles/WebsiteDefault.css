@@ -1,3 +1,17 @@
+@font-face {
+    font-family: MomcakeB;
+    src: url(fonts/MomcakeBold.otf);
+    font-weight: bold;
+}
+@font-face {
+    font-family: MomcakeT;
+    src: url(fonts/MomcakeThin.otf);
+}
+@font-face {
+    font-family: Backlash;
+    src: url(fonts/Backslash.otf);
+}
+
 .navbar-custom {
     background-color: #8D99AE/* rgb(66, 160, 66) */;
     color: #2B2D42;
