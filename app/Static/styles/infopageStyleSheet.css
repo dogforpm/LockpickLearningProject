@@ -12,6 +12,22 @@
     src: url(fonts/Backslash.otf);
 }
 
+H1 {
+    font-family: MomcakeT;
+}
+
+H2 {
+    font-family: MomcakeT;
+}
+
+H3 {
+    font-family: MomcakeT;
+}
+
+P {
+    font-family: Backlash
+}
+
 .Main {
     padding-top: 1%;
     height: 400px;
@@ -59,13 +75,4 @@
     cursor: pointer;
     display: inline-block;
     font-family: Backlash;
-}
-
-a {
-    display: block;
-    width: 100%;
-    line-height: 2em;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
 }
