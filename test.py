@@ -1,7 +1,7 @@
 import unittest
 import pytest
 from app import app, db
-from app.models import Users, Lesson, Test, Question
+from app.models import Users, Lesson, Question
 from app.forms import UserLoginForm, UserRegistrationForm
 from flask import current_app
 

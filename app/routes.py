@@ -152,8 +152,10 @@ def AdminInfo():
 # Creates the related database records for the questions, tests and lessons
 @app.route('/DataEntry', methods=['GET', 'POST'])
 def DataEntry():
+    print("Mary")
     if current_user.is_authenticated:
         UserLesson = Lesson.query.filter_by(user_id=current_user.id).first()
+        print(UserLesson)
         if UserLesson is None:
             # Topics of each lesson
             TopicList = ["Lesson1", "Lesson2", "Lesson3"]
@@ -165,7 +167,7 @@ def DataEntry():
                 db.session.commit()
                 # Two questions per test
                 for n in range(0,3):
-                    QuestionList = Question(QuestionNumber=i,Answered=False, Answer="TBD", lesson_id=LessonList.id)
+                    QuestionList = Question(QuestionNumber=i+1,Answered=False, Answer="TBD", lesson_id=LessonList.id)
                     db.session.add(QuestionList)
                     db.session.commit()
             return redirect(url_for('homepage'))
@@ -176,31 +178,43 @@ def DataEntry():
 def UserStats():
     if current_user.is_authenticated:
         UserTestStats = [0,0,0]
+        print(db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).all())
         for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).all():
-            if q.QuestionNumber == "1":
+            print(q.QuestionNumber)
+            if q.QuestionNumber == 1:
+                print(q.Answered)
                 if q.Answered == False:
                     UserTestStats[0] += 1
-            if q.QuestionNumber == "2":
+            if q.QuestionNumber == 2:
                 if q.Answered == False:
                     UserTestStats[1] += 1
-            if q.QuestionNumber == "3":
+            if q.QuestionNumber == 3:
                 if q.Answered == False:
                     UserTestStats[2] += 1
     return render_template('Stats.html', L1Score = UserTestStats[0], L2Score = UserTestStats[1], L3Score = UserTestStats[2], Overall=sum(UserTestStats))
 
-@app.route('/Lesson1', methods=['GET','POST'])
+@app.route('/Lesson1QuestionCheck', methods=['GET'])
+def Lesson1QuestionCheck():
+    form = UserQuestionCheck()
+    for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).filter(Question.QuestionNumber==1).all():
+        if form.Question1.data == q.Answer:
+            q.Answered = True
+            db.session.commit()
+    return redirect(url_for('homepage'))
+    return render_template("Lesson1.html", form=form)
+
+@app.route('/Lesson1')
 def Lesson1():
     form = UserQuestionCheck()
-    # print(form)
     if form.validate_on_submit():
-        # print(form.example.data)
+        print(form.example.data)
         for u, l, q in db.session.query(Users, Lesson, Question).filter(Users.id==Lesson.user_id).filter(Lesson.id==Question.lesson_id).filter(Users.id==current_user.id).filter(Question.QuestionNumber==1).all():
             if form.Question1.data == q.Answer:
                 q.Answered = True
                 db.session.commit()
         return redirect(url_for('homepage'))
-    # else:
-    #     print(form.errors)
+    else:
+         print(form.errors)
     return render_template("Lesson1.html", form=form)
 
 @app.route('/Lesson2')
@@ -229,6 +243,6 @@ def Lesson3():
                 q.Answered = True
                 db.session.commit()
         return redirect(url_for('homepage'))
-    # else:
-    #     print(form.errors)
+    else:
+         print(form.errors)
     return render_template("Lesson3.html", form=form)

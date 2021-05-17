@@ -1,6 +1,6 @@
 # Imports
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField, IntegerField, SelectField
 from wtforms.validators import DataRequired, ValidationError, EqualTo
 from app.models import Users
 
@@ -31,7 +31,10 @@ class UserRegistrationForm(FlaskForm):
 
 # Define User Login forms
 class UserQuestionCheck(FlaskForm):
-    Question1 = RadioField('Question 1:', choices=[('A','description'),('B','description'),('C','description'),('D','description')], validators=[DataRequired()])
-    Question2 = RadioField('Question 2:', choices=[('A','description'),('B','description'),('C','description'),('D','description')], validators=[DataRequired()])
-    Question3 = RadioField('Question 3:', choices=[('A','description'),('B','description'),('C','description'),('D','description')], validators=[DataRequired()])
+    #Question1 = SelectField('Question 1: ', coerce=str, choices=[('A','A'),('B','B'),('C','C'),('D','D')] , validators=[DataRequired()])
+    #Question2 = SelectField('Question 2: ', coerce=str, choices=[('A','A'),('B','B'),('C','C'),('D','D')] , validators=[DataRequired()])
+    #Question3 = SelectField('Question 3: ', coerce=str, choices=[('A','A'),('B','B'),('C','C'),('D','D')] , validators=[DataRequired()])
+    Question1 = StringField('Question1', validators=[DataRequired()])
+    Question2 = StringField('Question2', validators=[DataRequired()])
+    Question3 = StringField('Question3', validators=[DataRequired()])
     submit = SubmitField('Submit answers')
