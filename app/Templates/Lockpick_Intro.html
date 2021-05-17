@@ -5,46 +5,9 @@
     <!-- Adds secondary style sheet needed specifically for this page -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/infopageStyleSheet.css') }}">
     <!-- Used to update user started record status -->
-    <script type=text/javascript>
-        $(function() {
-            $('#start').on('click', function(e) {
-              e.preventDefault()
-              $.getJSON('/UpdateUserState',
-                  function(data) {
-                //Intentionally empty
-              });
-              return false;
-            });
-          });
-    </script>
     {% endblock %}
     <!-- Adds homepage content -->
     {% block content %}
-        <div class="sidebar"></div>
-            <a href="#">Intro</a>
-            <a href="#">Page 1</a>
-            <a href="#">Page 2</a>
-            <a href="#">Page 3</a>
-            <a href="#">Page 4</a>
-            <a href="#">Chapter 1</a>
-            <a href="#">Page 1</a>
-            <a href="#">Page 2</a>
-            <a href="#">Page 3</a>
-            <a href="#">Page 4</a>
-            <a href="#">Chapter 2</a>
-            <a href="#">Page 1</a>
-            <a href="#">Page 2</a>
-            <a href="#">Page 3</a>
-            <a href="#">Page 4</a>
-            <a href="#">Chapter 3</a>
-            <a href="#">Page 1</a>
-            <a href="#">Page 2</a>
-            <a href="#">Page 3</a>
-            <a href="#">Final Testing</a>
-            <a href="#"></a>
-            <a href="#">Page 2</a>
-       </div>
-
         <div class ='main'>
             <div>
                 <div>
