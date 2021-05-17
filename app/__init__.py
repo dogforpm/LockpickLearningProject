@@ -1,5 +1,5 @@
 # Imports
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask
 from config import Config
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -17,3 +17,4 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 
 from app import routes, models
+

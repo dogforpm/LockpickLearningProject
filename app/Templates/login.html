@@ -26,8 +26,6 @@
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <!-- Form for user to say if they'd like their login to be remembered -->
-            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
             <p>{{ form.submit() }}</p>
         </form>
         <!-- Returns error if user login details are incorrect -->
